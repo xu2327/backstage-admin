@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    {{ $t('msg.test') }}
+    {{ $t('msg.route.profile') }}
     <el-pagination
       :page-size="100"
       layout="total, prev, pager, next"
