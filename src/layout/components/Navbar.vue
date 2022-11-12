@@ -34,8 +34,8 @@
 <script setup>
 import {} from 'vue'
 import { useStore } from 'vuex'
-import Hamburger from '@/layout/components/hamburger/index.vue'
-import Breadcrumb from '@/layout/components/Breadcrumb/index.vue'
+import Hamburger from '@/components/hamburger/index.vue'
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
 
 const store = useStore()
 const logout = () => {
@@ -72,7 +72,7 @@ const logout = () => {
     float: right;
     padding-right: 16px;
 
-    ::v-deep .avatar-container {
+    :deep(.avatar-container) {
       cursor: pointer;
       .avatar-wrapper {
         margin-top: 5px;
