@@ -11,7 +11,7 @@ module.exports = {
       '/api': {
         // 要代理的服务器地址  这里不用写 api
         target:
-          'https://www.fastmock.site/mock/6575a24f761577328ed7e3cc73f387c8/',
+          'https://www.fastmock.site/mock/6575a24f761577328ed7e3cc73f387c8',
         changeOrigin: true // 是否跨域
       }
     }
