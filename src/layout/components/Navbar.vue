@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <theme-picker class="right-menu-item hover-effect"></theme-picker>
       <lang-select class="right-menu-item hover-effect" />
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
@@ -38,6 +39,7 @@ import { useStore } from 'vuex'
 import Hamburger from '@/components/hamburger/index.vue'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import LangSelect from '@/components/LangSelect'
+import ThemePicker from '@/components/ThemeSelect/index'
 
 const store = useStore()
 const logout = () => {
