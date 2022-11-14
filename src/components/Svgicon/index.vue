@@ -57,4 +57,8 @@ const iconName = computed(() => `#icon-${props.icon}`)
   mask-size: cover !important;
   display: inline-block;
 }
+
+.svg-icon:focus {
+  outline: none;
+}
 </style>
