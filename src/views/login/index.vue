@@ -56,9 +56,8 @@
 <script setup>
 import LangSelect from '@/components/LangSelect/index.vue'
 import { ref } from 'vue'
-import { validatePassword } from './rules'
+import { validatePassword, validateName } from './rules'
 import { useStore } from 'vuex'
-import { useI18n } from 'vue-i18n'
 
 // 数据源
 const loginForm = ref({
@@ -67,13 +66,12 @@ const loginForm = ref({
 })
 
 // 验证规则
-const i18n = useI18n()
 const loginRules = ref({
   username: [
     {
       required: true,
       trigger: 'blur',
-      message: i18n.t('msg.login.usernameRule')
+      validator: validateName()
     }
   ],
   password: [
