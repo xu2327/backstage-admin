@@ -2,7 +2,11 @@
   <div class="user-manage-container">
     <el-card class="header">
       <div>
-        <el-button type="primary" @click="onImportExcelClick">
+        <el-button
+          type="primary"
+          @click="onImportExcelClick"
+          v-permission="['importUser']"
+        >
           {{ $t('msg.excel.importExcel') }}</el-button
         >
         <el-button type="success" @click="onToExcelClick">
@@ -55,12 +59,20 @@
               @click="onShowClick(row.id)"
               >{{ $t('msg.excel.show') }}</el-button
             >
-            <el-button type="info" size="mini">{{
-              $t('msg.excel.showRole')
-            }}</el-button>
-            <el-button type="danger" size="mini" @click="onRemoveClick(row)">{{
-              $t('msg.excel.remove')
-            }}</el-button>
+            <el-button
+              type="info"
+              size="mini"
+              @click="onShowRoleClick(row)"
+              v-permission="['distributeRole']"
+              >{{ $t('msg.excel.showRole') }}</el-button
+            >
+            <el-button
+              type="danger"
+              size="mini"
+              @click="onRemoveClick(row)"
+              v-permission="['removeUser']"
+              >{{ $t('msg.excel.remove') }}</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -78,17 +90,23 @@
       </el-pagination>
     </el-card>
     <export-to-excel v-model="exportToExcelVisible"></export-to-excel>
+    <roles-dialog
+      v-model="roleDialogVisible"
+      :userId="selectUserId"
+      @updateRole="getListData"
+    ></roles-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, onActivated, watch } from 'vue'
 import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import ExportToExcel from './components/Export2Excel.vue'
+import RolesDialog from './components/roles.vue'
 
 // 数据相关
 const tableData = ref([])
@@ -132,12 +150,19 @@ const onShowClick = (id) => {
   router.push(`/user/info/${id}`)
 }
 
-// excel 导入按钮点击事件
-const onImportExcelClick = () => {
-  router.push('/user/import')
+/**
+ * 为员工分配角色
+ */
+const roleDialogVisible = ref(false)
+const selectUserId = ref('')
+const onShowRoleClick = (row) => {
+  roleDialogVisible.value = true
+  selectUserId.value = row.id
 }
-// 处理导入用户后数据不重新加载的问题
-onActivated(getListData)
+
+watch(roleDialogVisible, (val) => {
+  if (!val) selectUserId.value = ''
+})
 
 /**
  * 删除按钮点击事件
@@ -152,12 +177,19 @@ const onRemoveClick = (row) => {
       type: 'warning'
     }
   ).then(async () => {
-    await deleteUser(row._id)
+    await deleteUser(row.id)
     ElMessage.success(i18n.t('msg.excel.removeSuccess'))
     // 重新渲染数据
     getListData()
   })
 }
+
+// excel 导入按钮点击事件
+const onImportExcelClick = () => {
+  router.push('/user/import')
+}
+// 处理导入用户后数据不重新加载的问题
+onActivated(getListData)
 
 /**
  * excel 导出点击事件
