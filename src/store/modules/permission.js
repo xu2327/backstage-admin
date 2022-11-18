@@ -24,10 +24,8 @@ export default {
       // 路由权限匹配
       menus.forEach((key) => {
         // 权限名 与 路由的 name 匹配
-        console.log(key)
         routes.push(...privateRoutes.filter((item) => item.name === key))
       })
-      console.log(routes)
       // 最后添加 不匹配路由进入 404
       routes.push({
         path: '/:catchAll(.*)',
