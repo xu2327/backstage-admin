@@ -29,7 +29,7 @@
 <script setup>
 import XLSX from 'xlsx'
 import { defineProps, ref } from 'vue'
-import { getHeaderRow, isExcel } from './.utils.js'
+import { getHeaderRow, isExcel } from './utils.js'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
