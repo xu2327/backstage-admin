@@ -4,11 +4,9 @@
       <el-avatar
         :size="logoHeight"
         shape="square"
-        src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
+        src="https://img0.baidu.com/it/u=3343115356,3238344416&fm=253&fmt=auto&app=138&f=JPEG?w=310&h=310"
       />
-      <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
-        imooc-admin
-      </h1>
+      <h1 class="logo-title" v-if="$store.getters.sidebarOpened">admin</h1>
     </div>
     <el-scrollbar>
       <sidebar-menu></sidebar-menu>
